@@ -25,7 +25,7 @@ namespace TestCity
             CollectionAssert.Contains(game.Dict, city);
         }
 
-        [DataRow("Астрахань")]
+        [DataRow("Астрахань", "Норильск", "Углич")]
         [TestMethod]
         public void AddArraInThePool(params string[] cities)
         {
@@ -37,6 +37,24 @@ namespace TestCity
             }
         }
 
+
+        [DataRow("Астрахань")]
+        [TestMethod]
+        public void CheckCityFromPool(string city)
+        {
+            var game = new GameCity();
+            game.AddCity(city);
+            var result = game.CheckExist(city);
+            Assert.IsTrue(result);
+        }
+
+        [DataRow("Архангельск")]
+        public void CheckCompareLetterInCitiesName(string city)
+        {
+            var game = new GameCity();
+            bool result = game.CheckLetters(city);
+            Assert.IsTrue(result);
+        }
 
     }
 }

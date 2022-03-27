@@ -22,5 +22,15 @@ namespace TheCity
         {
             Dict = new List<string>(cities);
         }
+
+        public bool CheckExist(string city)
+        {
+            return true;
+        }
+
+        public bool CheckLetters(string city)
+        {
+            return true;
+        }
     }
 }
