@@ -15,5 +15,16 @@ namespace TestCity
             var game = new GameCity();
             Assert.IsNotNull(game);
         }
+
+        [DataRow("Астрахань")]
+        [TestMethod]
+        public void AddOneCityInThePool(string city)
+        {
+            var game = new GameCity();
+            game.AddCity(city);
+            CollectionAssert.Contains(game.Dict, city);
+        } 
+
+
     }
 }
