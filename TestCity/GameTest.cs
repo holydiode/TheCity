@@ -47,7 +47,6 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
-
         [DataRow("Астрахань")]
         [TestMethod]
         public void CheckCityFromEmptyPool(string city)
@@ -56,8 +55,6 @@ namespace TestCity
             var result = game.CheckExist(city);
             Assert.IsFalse(result);
         }
-
-
 
         [DataRow("Архангельск")]
         [TestMethod]
@@ -68,6 +65,7 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
+
         [DataRow("Aрхангельск")]
         [TestMethod]
         public void CheckSameCity(string city)
@@ -77,7 +75,6 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
-
         [DataRow("Aрхангельск")]
         [TestMethod]
         public void CheckCity(string city)
@@ -86,5 +83,15 @@ namespace TestCity
             bool result = game.Check(city);
             Assert.IsTrue(result);
         }
+
+        [DataRow("Aрхангельск")]
+        [TestMethod]
+        public void CheckSay(string city)
+        {
+            var game = new GameCity();
+            game.Say(city);
+        }
+
+
     }
 }

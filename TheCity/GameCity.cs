@@ -44,5 +44,9 @@ namespace TheCity
         {
             return true;
         }
+
+        public void Say(string city)
+        {
+        }
     }
 }
