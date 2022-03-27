@@ -37,5 +37,10 @@ namespace TheCity
         {
             return true;
         }
+
+        public bool Check(object city)
+        {
+            return true;
+        }
     }
 }

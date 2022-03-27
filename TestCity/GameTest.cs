@@ -67,6 +67,14 @@ namespace TestCity
         }
 
 
+        [DataRow("Aрхангельск")]
+        [TestMethod]
+        public void CheckCity(string city)
+        {
+            var game = new GameCity();
+            bool result = game.Check(city);
+            Assert.IsTrue(result);
+        }
 
     }
 }
