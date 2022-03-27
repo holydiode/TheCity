@@ -102,6 +102,8 @@ namespace TestCity
             Assert.IsFalse(result);
         }
 
+
+
         [DataRow("Aрхангельск", "Норильск")]
         [TestMethod]
         public void CheckLetersTwoWords(string firstCity, string secondCity)
@@ -111,6 +113,17 @@ namespace TestCity
             bool result = game.CheckLetters(secondCity);
             Assert.IsFalse(result);
         }
+
+        [DataRow("Астрахань", "Норильск")]
+        [TestMethod]
+        public void CheckLetersWithSpecialWords(string firstCity, string secondCity)
+        {
+            var game = new GameCity();
+            game.Say(firstCity);
+            bool result = game.CheckLetters(secondCity);
+            Assert.IsTrue(result);
+        }
+
 
 
     }

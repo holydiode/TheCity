@@ -10,6 +10,8 @@ namespace TheCity
     public class GameCity
     {
 
+        private static readonly string specialCheraters = "ъь";
+
         public GameCity() {
             Dict = new List<string>();
             _hystory = new List<string>();
@@ -40,7 +42,15 @@ namespace TheCity
             {
                 return true;
             }
-            return _hystory[^1][^1] == city[0];
+
+            var lastSym = _hystory[^1].Length - 1;
+
+            while (specialCheraters.Contains(_hystory[^1][lastSym]) || lastSym == 0)
+            {
+                lastSym -= 1;
+            }
+
+            return _hystory[^1][lastSym] == city.ToLower()[0];
         }
 
         public bool CheckRepeat(string city)
