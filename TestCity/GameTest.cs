@@ -93,5 +93,16 @@ namespace TestCity
         }
 
 
+
+        [DataRow("Aрхангельск")]
+        [TestMethod]
+        public void CheckSameCityTwice(string city)
+        {
+            var game = new GameCity();
+            game.Say(city);
+            bool result = game.CheckRepeat(city);
+            Assert.IsFalse(result);
+        }
+
     }
 }

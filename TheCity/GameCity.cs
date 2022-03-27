@@ -9,11 +9,15 @@ namespace TheCity
 {
     public class GameCity
     {
+
         public GameCity() {
             Dict = new List<string>();
+            _hystory = new List<string>();
         }
 
         public IList Dict { get; set; }
+
+        private IList _hystory { get; set;}
 
         public void AddCity(string city)
         {
@@ -37,7 +41,7 @@ namespace TheCity
 
         public bool CheckRepeat(string city)
         {
-            return true;
+            return ! _hystory.Contains(city);
         }
 
         public bool Check(object city)
@@ -47,6 +51,7 @@ namespace TheCity
 
         public void Say(string city)
         {
+            _hystory.Add(city);
         }
     }
 }
