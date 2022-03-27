@@ -32,5 +32,10 @@ namespace TheCity
         {
             return true;
         }
+
+        public bool CheckRepeat(string city)
+        {
+            return true;
+        }
     }
 }

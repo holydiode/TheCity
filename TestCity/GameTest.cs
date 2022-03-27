@@ -49,12 +49,24 @@ namespace TestCity
         }
 
         [DataRow("Архангельск")]
+        [TestMethod]
         public void CheckCompareLetterInCitiesName(string city)
         {
             var game = new GameCity();
             bool result = game.CheckLetters(city);
             Assert.IsTrue(result);
         }
+
+        [DataRow("Aрхангельск")]
+        [TestMethod]
+        public void CheckSameCity(string city)
+        {
+            var game = new GameCity();
+            bool result = game.CheckRepeat(city);
+            Assert.IsTrue(result);
+        }
+
+
 
     }
 }
