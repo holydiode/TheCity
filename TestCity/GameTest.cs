@@ -23,7 +23,19 @@ namespace TestCity
             var game = new GameCity();
             game.AddCity(city);
             CollectionAssert.Contains(game.Dict, city);
-        } 
+        }
+
+        [DataRow("Астрахань")]
+        [TestMethod]
+        public void AddArraInThePool(params string[] cities)
+        {
+            var game = new GameCity();
+            game.AddCity(cities);
+            foreach(string citie in cities)
+            {
+                CollectionAssert.Contains(game.Dict, citie);
+            }
+        }
 
 
     }

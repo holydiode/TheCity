@@ -17,5 +17,10 @@ namespace TheCity
         {
             Dict = new List<string> { city };
         }
+
+        public void AddCity(string[] cities)
+        {
+            Dict = new List<string>(cities);
+        }
     }
 }
