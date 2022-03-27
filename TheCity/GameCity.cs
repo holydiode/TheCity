@@ -9,9 +9,11 @@ namespace TheCity
 {
     public class GameCity
     {
-        public GameCity() { }
+        public GameCity() {
+            Dict = new List<string>();
+        }
 
-        public ICollection Dict { get; set; }
+        public IList Dict { get; set; }
 
         public void AddCity(string city)
         {
@@ -25,7 +27,7 @@ namespace TheCity
 
         public bool CheckExist(string city)
         {
-            return true;
+            return Dict.Contains(city);
         }
 
         public bool CheckLetters(string city)

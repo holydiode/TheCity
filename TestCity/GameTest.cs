@@ -37,7 +37,6 @@ namespace TestCity
             }
         }
 
-
         [DataRow("Астрахань")]
         [TestMethod]
         public void CheckCityFromPool(string city)
@@ -47,6 +46,18 @@ namespace TestCity
             var result = game.CheckExist(city);
             Assert.IsTrue(result);
         }
+
+
+        [DataRow("Астрахань")]
+        [TestMethod]
+        public void CheckCityFromEmptyPool(string city)
+        {
+            var game = new GameCity();
+            var result = game.CheckExist(city);
+            Assert.IsFalse(result);
+        }
+
+
 
         [DataRow("Архангельск")]
         [TestMethod]
@@ -75,6 +86,5 @@ namespace TestCity
             bool result = game.Check(city);
             Assert.IsTrue(result);
         }
-
     }
 }
