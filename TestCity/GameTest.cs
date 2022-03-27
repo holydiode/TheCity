@@ -27,7 +27,7 @@ namespace TestCity
 
         [DataRow("Астрахань", "Норильск", "Углич")]
         [TestMethod]
-        public void AddArraInThePool(params string[] cities)
+        public void AddArrayInThePool(params string[] cities)
         {
             var game = new GameCity();
             game.AddCity(cities);
@@ -36,6 +36,19 @@ namespace TestCity
                 CollectionAssert.Contains(game.Dict, citie);
             }
         }
+
+
+
+        [DataRow("Астрахань", "Норильск", "Углич")]
+        [TestMethod]
+        public void AddComplexMethodInThePool(string city, params string[] cities)
+        {
+            var game = new GameCity();
+            game.AddCity(city);
+            game.AddCity(cities);
+            CollectionAssert.Contains(game.Dict, city);
+        }
+
 
         [DataRow("Астрахань")]
         [TestMethod]

@@ -23,12 +23,15 @@ namespace TheCity
 
         public void AddCity(string city)
         {
-            Dict = new List<string> { city };
+            Dict.Add(city);
         }
 
         public void AddCity(string[] cities)
         {
-            Dict = new List<string>(cities);
+            foreach (string citie in cities)
+            {
+                Dict.Add(citie);
+            }
         }
 
         public bool CheckExist(string city)
