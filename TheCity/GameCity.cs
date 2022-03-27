@@ -17,7 +17,7 @@ namespace TheCity
 
         public IList Dict { get; set; }
 
-        private IList _hystory { get; set;}
+        private IList<string> _hystory { get; set;}
 
         public void AddCity(string city)
         {
@@ -36,7 +36,11 @@ namespace TheCity
 
         public bool CheckLetters(string city)
         {
-            return true;
+            if (_hystory.Count == 0)
+            {
+                return true;
+            }
+            return _hystory[^1][^1] == city[0];
         }
 
         public bool CheckRepeat(string city)
