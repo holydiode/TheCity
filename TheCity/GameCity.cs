@@ -73,9 +73,13 @@ namespace TheCity
             return CheckExist(city) && CheckLetters(city) && CheckRepeat(city);
         }
 
-        public void Say(string city)
+        public bool Say(string city)
         {
-            _hystory.Add(city);
+            if (Check(city)) {
+                _hystory.Add(city);
+                return true;
+            }
+            return false;
         }
 
         public void StartTurn(int v)
@@ -89,7 +93,9 @@ namespace TheCity
             );
         }
 
-
-
+        public void AddCity()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

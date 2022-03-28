@@ -88,40 +88,59 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
-        [DataRow("Aрхангельск")]
+        [DataRow("Aрхангельск", "Aрхангельск")]
         [TestMethod]
-        public void CheckCity(string city)
+        public void CheckCity(string city, params string[] pool)
         {
             var game = new GameCity();
+            game.AddCity(pool);
             bool result = game.Check(city);
             Assert.IsTrue(result);
         }
 
-        [DataRow("Aрхангельск")]
+        [DataRow("Aрхангельск", "Aрхангельск")]
         [TestMethod]
-        public void CheckSay(string city)
+        public void CheckSay(string city, params string[] pool)
         {
             var game = new GameCity();
-            game.Say(city);
+            game.AddCity(pool);
+            var result = game.Say(city);
+            Assert.IsTrue(result);
         }
+
+        [DataRow("Aрхангельск", "Норильск", "Aрхангельск", "Норильск")]
+        [DataRow("Aрхангельск", "Амазонка", "Aрхангельск", "Норильск")]
+        [DataRow("Aрхангельск", "Aрхангельск", "Aрхангельск", "Норильск")]
+        [TestMethod]
+        public void CheckSayWrongAnswer(string firstCity, string secondCity, params string[] pool)
+        {
+            var game = new GameCity();
+            game.AddCity(pool);
+            game.Say(firstCity);
+            bool result = game.Say(secondCity);
+            Assert.IsFalse(result);
+        }
+
+
 
         [DataRow("Aрхангельск")]
         [TestMethod]
         public void CheckSameCityTwice(string city)
         {
             var game = new GameCity();
+            game.AddCity(city);
             game.Say(city);
             bool result = game.CheckRepeat(city);
             Assert.IsFalse(result);
         }
 
 
-
-        [DataRow("Aрхангельск", "Норильск")]
+        [DataRow("Aрхангельск", "Норильск", "Aрхангельск", "Норильск")]
         [TestMethod]
-        public void CheckLetersTwoWords(string firstCity, string secondCity)
+        public void CheckLetersTwoWords(string firstCity, string secondCity, params string[] pool)
         {
             var game = new GameCity();
+            game.AddCity(pool);
             game.Say(firstCity);
             bool result = game.CheckLetters(secondCity);
             Assert.IsFalse(result);
@@ -215,6 +234,13 @@ namespace TestCity
         }
 
 
+        [DataRow("Aрхангельск", "Норильск", "Aрхангельск", "Норильск")]
+        public void CheckTurnMoveWithCoorect(string firstCity, string secondCity, params string[] pool)
+        {
+            var game = new GameCity();
+            game.AddCity(pool);
+            game.Say(firstCity);
+        }
 
 
     }
