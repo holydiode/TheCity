@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TheCity
@@ -10,6 +12,12 @@ namespace TheCity
     public class GameCity
     {
         private static readonly string _specialCheraters = "ъь";
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr GetStdHandle(int nStdHandle);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool CancelIoEx(IntPtr handle, IntPtr lpOverlapped);
 
         private IList<string> _hystory { get; set; }
 
@@ -69,6 +77,15 @@ namespace TheCity
         {
             _hystory.Add(city);
         }
+
+        public void StartTurn(int v)
+        {
+            Task.Delay(v).ContinueWith(
+                _ =>
+                throw new OperationCanceledException()
+            );
+        }
+
 
 
     }

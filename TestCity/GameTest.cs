@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using TheCity;
 
 namespace TestCity
@@ -36,7 +37,6 @@ namespace TestCity
                 CollectionAssert.Contains(game.Dict, citie);
             }
         }
-
 
 
         [DataRow("Астрахань", "Норильск", "Углич")]
@@ -145,7 +145,24 @@ namespace TestCity
             game.Say(firstCity);
             bool result = game.Check(secondCity);
             Assert.IsTrue(result);
-        } 
+        }
+
+        [DataRow(100)]
+        [TestMethod]
+        public void CheckTimerBreack(int time)
+        {
+            var game = new GameCity();
+            game.StartTurn(time);
+
+            try
+            {
+                System.Threading.Thread.Sleep(time * 2);
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
 
 
     }
