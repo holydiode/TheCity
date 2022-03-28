@@ -137,6 +137,15 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
+        [DataRow("Астрахань", "Норильск")]
+        [TestMethod]
+        public void CheckMainDoubleWorld(string firstCity, string secondCity)
+        {
+            var game = new GameCity();
+            game.Say(firstCity);
+            bool result = game.Check(secondCity);
+            Assert.IsTrue(result);
+        } 
 
 
     }

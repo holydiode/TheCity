@@ -9,8 +9,9 @@ namespace TheCity
 {
     public class GameCity
     {
+        private static readonly string _specialCheraters = "ъь";
 
-        private static readonly string specialCheraters = "ъь";
+        private IList<string> _hystory { get; set; }
 
         public GameCity() {
             Dict = new List<string>();
@@ -18,8 +19,6 @@ namespace TheCity
         }
 
         public IList Dict { get; set; }
-
-        private IList<string> _hystory { get; set;}
 
         public void AddCity(string city)
         {
@@ -48,7 +47,7 @@ namespace TheCity
 
             var lastSym = _hystory[^1].Length - 1;
 
-            while (specialCheraters.Contains(_hystory[^1][lastSym]) || lastSym == 0)
+            while (_specialCheraters.Contains(_hystory[^1][lastSym]) || lastSym == 0)
             {
                 lastSym -= 1;
             }
@@ -70,5 +69,7 @@ namespace TheCity
         {
             _hystory.Add(city);
         }
+
+
     }
 }
