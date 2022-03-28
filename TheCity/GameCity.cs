@@ -68,9 +68,9 @@ namespace TheCity
             return ! _hystory.Contains(city);
         }
 
-        public bool Check(object city)
+        public bool Check(string city)
         {
-            return true;
+            return CheckExist(city) && CheckLetters(city) && CheckRepeat(city);
         }
 
         public void Say(string city)
@@ -81,8 +81,11 @@ namespace TheCity
         public void StartTurn(int v)
         {
             Task.Delay(v).ContinueWith(
-                _ =>
-                throw new OperationCanceledException()
+                _ => {
+                        var handle = GetStdHandle(-10);
+                        CancelIoEx(handle, IntPtr.Zero);
+                        throw new OperationCanceledException();
+                    }
             );
         }
 

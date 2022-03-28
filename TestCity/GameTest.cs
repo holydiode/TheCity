@@ -137,14 +137,17 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
-        [DataRow("Астрахань", "Норильск")]
+        [DataRow("Aрхангельск", "Норильск", "Aрхангельск", "Норильск")]
+        [DataRow("Aрхангельск", "Амазонка", "Aрхангельск", "Норильск")]
+        [DataRow("Aрхангельск", "Aрхангельск", "Aрхангельск", "Норильск")]
         [TestMethod]
-        public void CheckMainDoubleWorld(string firstCity, string secondCity)
+        public void CheckMainDoubleWorld(string firstCity, string secondCity, params string[] pool)
         {
             var game = new GameCity();
+            game.AddCity(pool);
             game.Say(firstCity);
             bool result = game.Check(secondCity);
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
 
         [DataRow(100)]
@@ -163,6 +166,55 @@ namespace TestCity
             {
             }
         }
+
+
+        [DataRow(100)]
+        [TestMethod]
+        public void CheckTimerNonEarlyBreack(int time)
+        {
+            var game = new GameCity();
+            
+            try
+            {
+                game.StartTurn(time);
+                System.Threading.Thread.Sleep(time / 2);
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [DataRow(100)]
+        [TestMethod]
+        public void CheckTimerRestrt(int time)
+        {
+            var game = new GameCity();
+           
+            for (int i = 0; i < 2; i++)
+            {
+                try
+                {
+                    game.StartTurn(time);
+                    System.Threading.Thread.Sleep( (int)((float)time / 1.1));
+                }
+                catch (Exception)
+                {
+                    Assert.Fail();
+                }
+            }
+            try
+            {
+                System.Threading.Thread.Sleep(time * 2);
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+
 
 
     }
