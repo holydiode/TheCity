@@ -192,16 +192,9 @@ namespace TestCity
         public void CheckTimerNonEarlyBreack(int time)
         {
             var game = new GameCity();
-            
-            try
-            {
-                game.StartTurn(time);
-                System.Threading.Thread.Sleep(time / 2);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
+            game.StartTurn(time);
+            System.Threading.Thread.Sleep(time / 2);
+
         }
 
 
@@ -213,15 +206,8 @@ namespace TestCity
            
             for (int i = 0; i < 2; i++)
             {
-                try
-                {
-                    game.StartTurn(time);
-                    System.Threading.Thread.Sleep( (int)((float)time / 1.1));
-                }
-                catch (Exception)
-                {
-                    Assert.Fail();
-                }
+                game.StartTurn(time);
+                System.Threading.Thread.Sleep( time - time / 5);
             }
             try
             {
@@ -234,14 +220,42 @@ namespace TestCity
         }
 
 
-        [DataRow("Aрхангельск", "Норильск", "Aрхангельск", "Норильск")]
-        public void CheckTurnMoveWithCoorect(string firstCity, string secondCity, params string[] pool)
+        [DataRow(100, "Астрахань", "Норильск", "Астрахань", "Норильск")]
+        [TestMethod]
+        public void CheckTurnMoveWithCoorect(int time,string firstCity, string secondCity, params string[] pool)
         {
             var game = new GameCity();
             game.AddCity(pool);
+            game.StartTurn(time);
+            System.Threading.Thread.Sleep(time - time / 5);
             game.Say(firstCity);
+            System.Threading.Thread.Sleep(time - time / 5);
+            game.Say(secondCity);
         }
 
+
+        [DataRow(100, "Aрхангельск", "Норильск", "Aрхангельск", "Норильск")]
+        [DataRow(100, "Aрхангельск", "Амазонка", "Aрхангельск", "Норильск")]
+        [DataRow(100, "Aрхангельск", "Aрхангельск", "Aрхангельск", "Норильск")]
+        [TestMethod]
+        public void CheckTurnMoveWithWrong(int time, string firstCity, string secondCity, params string[] pool)
+        {
+            var game = new GameCity();
+            game.AddCity(pool);
+            game.StartTurn(time);
+            System.Threading.Thread.Sleep(time - time / 5);
+            game.Say(firstCity);
+            System.Threading.Thread.Sleep(time - time / 5);
+            game.Say(secondCity);
+            try
+            {
+                System.Threading.Thread.Sleep(time);
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
 
     }
 }
