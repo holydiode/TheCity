@@ -240,9 +240,6 @@ namespace TestCity
         }
         private class City
         {
-            string city_id;
-            string country_id;
-            string region_id;
             public string name;
         }
 
@@ -255,7 +252,6 @@ namespace TestCity
             game.WebLoad<City>(source, a => a.name);
             Assert.IsTrue(game.Check(city));
         }
-
 
     }
 }

@@ -30,17 +30,21 @@ namespace TheCity
         {
             try
             {
-                StartTurn(turnLenght);
+                Console.WriteLine("Ход игрока {0}", this._hystory.Count % 2);
+                StartTurn(turnLenght); 
+
                 while (true)
                     if (Say(Console.ReadLine()))
+                    {
                         Console.WriteLine("Верно");
                         StartTurn(turnLenght);
+                        Console.WriteLine("Ход игрока {0}", this._hystory.Count % 2);
+                    }
             }        
             catch
             {
                 return (this._hystory.Count + 1) % 2;
             }
-            return 0;
         }
 
         private IList<string> _hystory { get; set; }
@@ -109,12 +113,14 @@ namespace TheCity
         public void StartTurn(int v)
         {
             _timerToken.Cancel();
+            _timerToken = new();
             Task.Delay(v).ContinueWith(
                 _ => {
                         var handle = GetStdHandle(-10);
                         CancelIoEx(handle, IntPtr.Zero);
                         throw new OperationCanceledException();
                     }
+                , _timerToken.Token
             );
         }
 
@@ -134,9 +140,6 @@ namespace TheCity
             }
         }
 
-        public void AddCity()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
