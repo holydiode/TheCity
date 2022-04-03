@@ -12,11 +12,14 @@ namespace TheCity
     public class GameCity
     {
         private static readonly string _specialCheraters = "ъь";
+        public CancellationTokenSource _timerToken = new();
+
 
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern IntPtr GetStdHandle(int nStdHandle);
 
         [DllImport("kernel32.dll", SetLastError = true)]
+
         static extern bool CancelIoEx(IntPtr handle, IntPtr lpOverlapped);
 
         private IList<string> _hystory { get; set; }
@@ -84,6 +87,7 @@ namespace TheCity
 
         public void StartTurn(int v)
         {
+            _timerToken.Cancel();
             Task.Delay(v).ContinueWith(
                 _ => {
                         var handle = GetStdHandle(-10);

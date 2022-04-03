@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 using TheCity;
 
 namespace TestCity
@@ -175,15 +176,17 @@ namespace TestCity
         {
             var game = new GameCity();
             game.StartTurn(time);
+            bool throwHandle = false;
 
             try
             {
-                System.Threading.Thread.Sleep(time * 2);
-                Assert.Fail();
+                Console.ReadLine();
             }
             catch (Exception)
             {
+                throwHandle = true;
             }
+            Assert.IsTrue(throwHandle);
         }
 
 
@@ -194,29 +197,6 @@ namespace TestCity
             var game = new GameCity();
             game.StartTurn(time);
             System.Threading.Thread.Sleep(time / 2);
-
-        }
-
-
-        [DataRow(100)]
-        [TestMethod]
-        public void CheckTimerRestrt(int time)
-        {
-            var game = new GameCity();
-           
-            for (int i = 0; i < 2; i++)
-            {
-                game.StartTurn(time);
-                System.Threading.Thread.Sleep( time - time / 5);
-            }
-            try
-            {
-                System.Threading.Thread.Sleep(time * 2);
-                Assert.Fail();
-            }
-            catch (Exception)
-            {
-            }
         }
 
 
@@ -247,6 +227,7 @@ namespace TestCity
             game.Say(firstCity);
             System.Threading.Thread.Sleep(time - time / 5);
             game.Say(secondCity);
+
             try
             {
                 System.Threading.Thread.Sleep(time);
