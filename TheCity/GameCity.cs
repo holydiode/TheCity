@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -13,6 +16,7 @@ namespace TheCity
     {
         private static readonly string _specialCheraters = "ъь";
         public CancellationTokenSource _timerToken = new();
+        //public static string WebSource = "https://raw.githubusercontent.com/aZolo77/citiesBase/master/cities.json";
 
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -21,6 +25,23 @@ namespace TheCity
         [DllImport("kernel32.dll", SetLastError = true)]
 
         static extern bool CancelIoEx(IntPtr handle, IntPtr lpOverlapped);
+
+        public int Play(int turnLenght)
+        {
+            try
+            {
+                StartTurn(turnLenght);
+                while (true)
+                    if (Say(Console.ReadLine()))
+                        Console.WriteLine("Верно");
+                        StartTurn(turnLenght);
+            }        
+            catch
+            {
+                return (this._hystory.Count + 1) % 2;
+            }
+            return 0;
+        }
 
         private IList<string> _hystory { get; set; }
 
@@ -95,6 +116,22 @@ namespace TheCity
                         throw new OperationCanceledException();
                     }
             );
+        }
+
+        public void  WebLoad<T>(string webSource, Func<T,string> parse)
+        {
+            var jsonCityString = "";
+            using (var client = new WebClient())
+            {
+                jsonCityString = client.DownloadString(webSource); 
+            }
+
+
+            var citysNames = (JObject)JsonConvert.DeserializeObject(jsonCityString);
+            foreach(var cityName in citysNames.First.First.Children())
+            {
+                this.AddCity(parse(cityName.ToObject<T>()));
+            }
         }
 
         public void AddCity()

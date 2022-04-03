@@ -99,6 +99,7 @@ namespace TestCity
             Assert.IsTrue(result);
         }
 
+
         [DataRow("Aрхангельск", "Aрхангельск")]
         [TestMethod]
         public void CheckSay(string city, params string[] pool)
@@ -237,6 +238,24 @@ namespace TestCity
             {
             }
         }
+        private class City
+        {
+            string city_id;
+            string country_id;
+            string region_id;
+            public string name;
+        }
+
+
+        [DataRow("https://raw.githubusercontent.com/aZolo77/citiesBase/master/cities.json", "Норильск")]
+        [TestMethod]
+        public void CheclWebLoad(string source, string city)
+        {
+            var game = new GameCity();
+            game.WebLoad<City>(source, a => a.name);
+            Assert.IsTrue(game.Check(city));
+        }
+
 
     }
 }
